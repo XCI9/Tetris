@@ -54,6 +54,9 @@ public:
             KeyBinding->setObjectName(QString::fromUtf8("KeyBinding"));
         KeyBinding->resize(288, 300);
         KeyBinding->setAutoFillBackground(false);
+        KeyBinding->setStyleSheet(QString::fromUtf8("QLineEdit:focus{\n"
+"  border : 1px solid rgb(49, 142, 253);\n"
+"}"));
         buttonBox = new QDialogButtonBox(KeyBinding);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setGeometry(QRect(80, 260, 191, 32));

@@ -8,6 +8,7 @@ KeyBinding::KeyBinding(MainWindow *mainWindow) :
     ui(new Ui::KeyBinding)
 {
     ui->setupUi(this);
+    ui->keyConflitMsg->hide();
 
     m_actionMapper[ui->lineEditMoveR] = MainWindow::Action::MoveRight;
     m_actionMapper[ui->lineEditMoveL] = MainWindow::Action::MoveLeft;
@@ -39,19 +40,14 @@ bool KeyBinding::eventFilter(QObject *obj, QEvent *event) {
         this->setFocus();       //unFocus current LineEdit
 
         //assign same key as original
-        if (keyEvent->key() == m_mainWindow->getShortcut(m_actionMapper[qLineEdit])) {
-            qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
-            return QObject::eventFilter(obj, event);
-        }
-
-        if (!m_mainWindow->checkShortcutConflit(keyEvent->key())) {
-            m_mainWindow->setShortcut(m_actionMapper[qLineEdit], keyEvent->key());
-            qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
-        }
-        else {  //key conflit
-            qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
+        if (keyEvent->key() == m_mainWindow->getShortcut(m_actionMapper[qLineEdit])) {}
+        else if (m_mainWindow->checkShortcutConflit(keyEvent->key())) {  //key conflit
             ui->keyConflitMsg->show();
         }
+        else {
+            m_mainWindow->setShortcut(m_actionMapper[qLineEdit], keyEvent->key());
+        }
+        qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
     }
     return QObject::eventFilter(obj, event);
 }
