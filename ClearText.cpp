@@ -10,7 +10,6 @@ ClearText::ClearText():
     m_scoreText{ new QGraphicsTextItem{}},
     m_textTimer{ new QTimeLine(2000) }
 {
-
     //ScoreText
     m_scoreText->setPos(80, 50);
     applyAnimation(m_scoreText);
@@ -37,23 +36,23 @@ ClearText::ClearText():
     this->addToGroup(m_backToBackText);
 }
 
-void ClearText::applyAnimation(QGraphicsTextItem* text){
+void ClearText::applyAnimation(QGraphicsTextItem* text) {
     m_textTimer->setFrameRange(0, 100);
 
-    auto *animation {new QGraphicsItemAnimation{}};
+    auto* animation{ new QGraphicsItemAnimation{} };
     animation->setItem(text);
     animation->setTimeLine(m_textTimer);
 
     animation->setPosAt(0.0, text->pos() + QPointF(0, 0));
     animation->setPosAt(1.0, text->pos() + QPointF(-5, -10));
 
-    animation->setScaleAt(0.0, 1,   1);
+    animation->setScaleAt(0.0, 1, 1);
     animation->setScaleAt(1.0, 1.1, 1.1);
-   //https://stackoverflow.com/questions/5153157/passing-an-argument-to-a-slot
-    connect(m_textTimer, &QTimeLine::finished, text, [text]{ text->setVisible(false); });
+    //https://stackoverflow.com/questions/5153157/passing-an-argument-to-a-slot
+    connect(m_textTimer, &QTimeLine::finished, text, [text] { text->setVisible(false); });
 }
 
-void ClearText::showScoreText(int score){
+void ClearText::showScoreText(int score) {
     //ScoreText
     QTextCharFormat charFormat{};
     charFormat.setFont(QFont("arial", 24, QFont::Bold));
@@ -62,31 +61,31 @@ void ClearText::showScoreText(int score){
     charFormat.setTextOutline(outlinePen);
 
     m_scoreText->setPlainText("");
-    auto document{ m_scoreText->document()};
+    auto document{ m_scoreText->document() };
     QTextCursor cursor{ document };
     cursor.insertText("+" + QString::number(score), charFormat);
 
     m_scoreText->setVisible(true);
 }
 
-void ClearText::showClear(int clearLineCount, bool isTSpin, bool isTSpinMini){
+void ClearText::showClear(int clearLineCount, bool isTSpin, bool isTSpinMini) {
     QString displayText{};
-    if(isTSpin){
-        switch (clearLineCount){
+    if (isTSpin) {
+        switch (clearLineCount) {
         case 1: displayText = " TSpin\nSingle!"; break;
         case 2: displayText = " TSpin\nDouble!"; break;
         case 3: displayText = " TSpin\nTriple!"; break;
         }
     }
-    else if(isTSpinMini){
-        switch (clearLineCount){
+    else if (isTSpinMini) {
+        switch (clearLineCount) {
         case 1: displayText = "TSpinMini\n Single!"; break;
         case 2: displayText = "TSpinMini\n Double!"; break;
         case 3: displayText = "TSpinMini\n Triple!"; break;
         }
     }
-    else{
-        switch (clearLineCount){
+    else {
+        switch (clearLineCount) {
         case 1: displayText = " Single!"; break;
         case 2: displayText = " Double!"; break;
         case 3: displayText = " Triple!"; break;
@@ -94,19 +93,19 @@ void ClearText::showClear(int clearLineCount, bool isTSpin, bool isTSpinMini){
         }
     }
 
-    m_normalText->document()->setHtml("<font color='red' font='times' size='24' >" + displayText +"</font>");
+    m_normalText->document()->setHtml("<font color='red' font='times' size='24' >" + displayText + "</font>");
     m_normalText->setVisible(true);
 }
 
-void ClearText::showBackToBack(){
+void ClearText::showBackToBack() {
     m_backToBackText->setVisible(true);
 }
 
-void ClearText::showPerfectClear(){
+void ClearText::showPerfectClear() {
     m_perfectClearText->setVisible(true);
 }
 
-void ClearText::show(){
+void ClearText::show() {
     //restart timer
     m_textTimer->setCurrentTime(0);
     m_textTimer->start();

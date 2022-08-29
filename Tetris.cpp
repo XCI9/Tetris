@@ -1,30 +1,29 @@
 #include "Tetris.h"
 
-Tetris::Tetris():
+Tetris::Tetris() :
     m_core{},
     m_board{ new Board{ m_core.m_width, m_core.m_height - m_core.m_bufferSize } },
-    m_holdBlock{new HoldBlock{}},
-    m_nextBlock{new NextBlock{ m_core.m_blockQueue }},
-    m_gameInfo{new GameInfo{}},
-    m_clearText{new ClearText{}},
-    m_gamePause{new GamePause{}}
-{
-    m_holdBlock->setPos(0,0);
+    m_holdBlock{ new HoldBlock{} },
+    m_nextBlock{ new NextBlock{ m_core.m_blockQueue } },
+    m_gameInfo{ new GameInfo{} },
+    m_clearText{ new ClearText{} },
+    m_gamePause{ new GamePause{} } {
+    m_holdBlock->setPos(0, 0);
     this->addItem(m_holdBlock);
 
-    m_nextBlock->setPos(425,0);
+    m_nextBlock->setPos(425, 0);
     this->addItem(m_nextBlock);
 
-    m_gameInfo->setPos(425,425);
+    m_gameInfo->setPos(425, 425);
     this->addItem(m_gameInfo);
 
-    m_board->setPos(150,0);
+    m_board->setPos(150, 0);
     this->addItem(m_board);
 
-    m_clearText->setPos(150,0);
+    m_clearText->setPos(150, 0);
     this->addItem(m_clearText);
 
-    m_gamePause->setPos(125 + 12.5,100);
+    m_gamePause->setPos(125 + 12.5, 100);
     this->addItem(m_gamePause);
     m_gamePause->hide();
 
@@ -34,7 +33,7 @@ Tetris::Tetris():
     //m_lockTimer.start();
 
     m_timer = new Timer{};
-    connect(m_timer, &Timer::timeout, this ,[&]{tick();});
+    connect(m_timer, &Timer::timeout, this, [&] {tick(); });
 
     m_timer->start(17);  //0.017s ~= 60FPS
 }
@@ -69,10 +68,10 @@ Tetris::Tetris():
     update();*/
 //}
 
-void Tetris::update(){
-    for(int row{ 0 }; row < m_board->m_height; row++)
-        for(int col{ 0 }; col < m_board->m_width; col++)
-            m_board->update(row, col, m_core.m_board[row+m_core.m_bufferSize][col]);
+void Tetris::update() {
+    for (int row{ 0 }; row < m_board->m_height; row++)
+        for (int col{ 0 }; col < m_board->m_width; col++)
+            m_board->update(row, col, m_core.m_board[row + m_core.m_bufferSize][col]);
 
     Block::TetrominoesCoord previewPosition{ m_core.calculatePreviewPosition() };
     for (const auto& [x, y] : previewPosition) {
@@ -92,12 +91,12 @@ void Tetris::update(){
     m_gameInfo->update(m_core.getLevel(), m_core.getScore());
 
     //display clear Text
-    if(m_core.m_isLastMoveClear){
+    if (m_core.m_isLastMoveClear) {
         m_clearText->showScoreText(m_core.m_lastClearScore);
         m_clearText->showClear(m_core.m_lastClearLineCount, m_core.m_isLastClearTSpin, m_core.m_isLastClearTSpinMini);
-        if(m_core.m_isLastClearPerfect)
+        if (m_core.m_isLastClearPerfect)
             m_clearText->showPerfectClear();
-        if(m_core.m_lastClearBackToBack && m_core.m_lastSecondClearBackToBack)
+        if (m_core.m_lastClearBackToBack && m_core.m_lastSecondClearBackToBack)
             m_clearText->showBackToBack();
 
         m_clearText->show();
@@ -110,15 +109,15 @@ void Tetris::tick() {
     //max speed is lvl.18
     m_currentSpeed = std::min(m_core.getLevel(), 18);
 
-    if (m_speed[static_cast<int>(m_currentSpeed)] < 1) { //many frame move once
-        if (m_counter * m_speed[static_cast<int>(m_currentSpeed)] > 1) {
+    if (m_speed[m_currentSpeed] < 1) { //many frame move once
+        if (m_counter * m_speed[m_currentSpeed] > 1) {
             m_counter = 0;
             m_core.moveDownTetrominoes();
             update();
         }
     }
     else {  //1 frame move many times
-        for (int i{ static_cast<int>(m_speed[static_cast<int>(m_currentSpeed)]) }; i > 0; i--)
+        for (int i{ static_cast<int>(m_speed[m_currentSpeed]) }; i > 0; i--)
             m_core.moveDownTetrominoes();
         update();
         m_counter = 0;

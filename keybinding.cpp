@@ -29,14 +29,14 @@ KeyBinding::KeyBinding(MainWindow *mainWindow) :
     }
 }
 
-bool KeyBinding::eventFilter(QObject *obj, QEvent *event) {
-    QLineEdit *qLineEdit = qobject_cast<QLineEdit*>(obj);
+bool KeyBinding::eventFilter(QObject* obj, QEvent* event) {
+    QLineEdit* qLineEdit = qobject_cast<QLineEdit*>(obj);
     if (event->type() == QEvent::FocusIn) {
         qLineEdit->setText("");
         ui->keyConflitMsg->hide();
     }
     if (event->type() == QEvent::KeyRelease) {
-        QKeyEvent *keyEvent{ static_cast<QKeyEvent *>(event) };
+        QKeyEvent* keyEvent{ static_cast<QKeyEvent*>(event) };
         this->setFocus();       //unFocus current LineEdit
 
         //assign same key as original
