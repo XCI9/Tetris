@@ -4,7 +4,7 @@
 
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , scene{ new Tetris{} }
     , ui(new Ui::MainWindow)
@@ -28,15 +28,15 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::on_action_3_triggered() {
-    scene->m_timer->pause();
+    scene->pause();
     KeyBinding keyBinding{this};
     keyBinding.installEventFilter(this);
     keyBinding.setModal(true);   //獨佔模式
     keyBinding.exec();
-    scene->m_timer->resume();
+    scene->resume();
 }
 
-void MainWindow::actionInit(){
+void MainWindow::actionInit() {
     for(auto& action : m_action)
         action = new QShortcut(this);
 
@@ -59,21 +59,21 @@ void MainWindow::actionInit(){
     connect(m_action[Action::RotateCounterClockwise], &QShortcut::activated, this ,[&]{scene->rotateCounterClockwise();});
 }
 
-void MainWindow::setShortcut(Action action, const QKeySequence& key){
+void MainWindow::setShortcut(Action action, const QKeySequence& key) {
     m_action[action]->setKey(key);
 }
 
-QKeySequence MainWindow::getShortcut(const Action& action) const{
+QKeySequence MainWindow::getShortcut(const Action& action) const {
     return m_action[action]->key();
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event){
-    if (event->key() == Qt::Key_F11){
-        if(this->windowState() == Qt::WindowFullScreen){
+void MainWindow::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_F11) {
+        if (this->windowState() == Qt::WindowFullScreen) {
             this->setWindowState(Qt::WindowMaximized);
             ui->menubar->show();
         }
-        else{
+        else {
             this->setWindowState(Qt::WindowFullScreen);
             ui->menubar->hide();
         }

@@ -26,6 +26,7 @@ Tetris::Tetris():
 
     m_gamePause->setPos(125 + 12.5,100);
     this->addItem(m_gamePause);
+    m_gamePause->hide();
 
     update();
 
@@ -87,9 +88,10 @@ void Tetris::update(){
 
     m_nextBlock->addBlock(m_core.m_blockQueue);
 
+    //display gameInfo
     m_gameInfo->update(m_core.getLevel(), m_core.getScore());
 
-    //display Text
+    //display clear Text
     if(m_core.m_isLastMoveClear){
         m_clearText->showScoreText(m_core.m_lastClearScore);
         m_clearText->showClear(m_core.m_lastClearLineCount, m_core.m_isLastClearTSpin, m_core.m_isLastClearTSpinMini);
@@ -104,28 +106,28 @@ void Tetris::update(){
     }
 }
 
-void Tetris::tick(){
+void Tetris::tick() {
     //max speed is lvl.18
-    m_currentSpeed = std::min(m_core.getLevel(),18);
+    m_currentSpeed = std::min(m_core.getLevel(), 18);
 
-    if (m_speed[static_cast<int>(m_currentSpeed)] < 1){ //many frame move once
-        if (m_counter * m_speed[static_cast<int>(m_currentSpeed)] > 1){
+    if (m_speed[static_cast<int>(m_currentSpeed)] < 1) { //many frame move once
+        if (m_counter * m_speed[static_cast<int>(m_currentSpeed)] > 1) {
             m_counter = 0;
             m_core.moveDownTetrominoes();
             update();
         }
     }
-    else{  //1 frame move many times
+    else {  //1 frame move many times
         for (int i{ static_cast<int>(m_speed[static_cast<int>(m_currentSpeed)]) }; i > 0; i--)
             m_core.moveDownTetrominoes();
         update();
         m_counter = 0;
     }
-    m_counter ++;
+    m_counter++;
 
 
     //lockTimer
-    if(m_core.m_lockTimer < m_core.m_lockDelay)
+    if (m_core.m_lockTimer < m_core.m_lockDelay)
         m_core.m_lockTimer++;
 }
 
@@ -152,7 +154,6 @@ void Tetris::rotateClockwise(){
 void Tetris::rotateCounterClockwise(){
     m_core.rotateCounterClockwise();
     update();
-
 }
 
 void Tetris::hardDrop(){
@@ -168,9 +169,11 @@ void Tetris::hold(){
 
 void Tetris::pause(){
     m_timer->pause();
+    m_gamePause->show();
 }
 
 void Tetris::resume(){
     m_timer->resume();
+    m_gamePause->hide();
 }
 

@@ -25,21 +25,21 @@ const T& enumArray<Enumerator, T>::operator[] (const Enumerator enumerator) cons
 template<typename Key, typename Value, std::size_t Size>
 class ConstMap : public std::array<std::pair<Key, Value>, Size>{
 public:
-    ConstMap(const std::array<std::pair<Key,Value>,Size>& arr):
-    std::array<std::pair<Key,Value>,Size>{arr}
+    ConstMap(const std::array<std::pair<Key, Value>, Size>& arr) :
+        std::array<std::pair<Key, Value>, Size>{arr}
     {}
 
-    [[nodiscard]]constexpr Value operator[] (const Key& key);
+    [[nodiscard]] constexpr Value operator[] (const Key& key);
 };
 
 template<typename Key, typename Value, std::size_t Size>
-constexpr Value ConstMap<Key,Value,Size>::operator[] (const Key& key){
+constexpr Value ConstMap<Key, Value, Size>::operator[] (const Key& key) {
     const auto it{
         std::find_if(this->begin(),this->end(),
-                     [&key](const auto& e){return e.first == key;})
+                     [&key](const auto& e) {return e.first == key; })
     };
 
-    if (it!=this->end())
+    if (it != this->end())
         return it->second;
     else
         throw std::range_error("Key Not Found!");

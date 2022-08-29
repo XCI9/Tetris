@@ -164,6 +164,7 @@ void Core::moveLeftTetrominoes() {
 }
 
 void Core::moveDownTetrominoes(bool isSoftDrop) {
+    //check if touch floor
     for (const auto& [x, y] : m_currentTetrominoes) {
         if (y + 1 >= m_height || m_board[y + 1][x] != Block::Type::Empty) {
             putCurrentTetrominoes();
@@ -521,9 +522,7 @@ void Core::judgeSpinPosition(const TetrominoesCoord& rotationPlace, const Rotati
                 m_currentTetrominoes = rotationPlace;
                 m_currentTetrominoesRotation = directionAfterSpin;
                 m_currentTetrominoesMove += Block::normalSpinTable[currentRotationType][i];
-                m_currentTetrominoesLastSpinMoveDistance = 0;
-                m_currentTetrominoesLastSpinMoveDistance += abs(Block::normalSpinTable[currentRotationType][i].x());
-                m_currentTetrominoesLastSpinMoveDistance += abs(Block::normalSpinTable[currentRotationType][i].y());
+                m_currentTetrominoesLastSpinMoveDistance = Block::normalSpinTable[currentRotationType][i].manhattanLength();
                 for (auto& pos : m_currentTetrominoes)
                     pos += m_currentTetrominoesMove;
                 m_lastOperation = Operation::Spin;
