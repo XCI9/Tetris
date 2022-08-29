@@ -59,12 +59,20 @@ void MainWindow::actionInit() {
     connect(m_action[Action::RotateCounterClockwise], &QShortcut::activated, this ,[&]{scene->rotateCounterClockwise();});
 }
 
-void MainWindow::setShortcut(Action action, const QKeySequence& key) {
+void MainWindow::setShortcut(const Action action, const QKeySequence& key) {
     m_action[action]->setKey(key);
 }
 
-QKeySequence MainWindow::getShortcut(const Action& action) const {
+QKeySequence MainWindow::getShortcut(const Action action) const {
     return m_action[action]->key();
+}
+
+bool MainWindow::checkShortcutConflit(const QKeySequence& key) const {
+    for (const auto& shortcut : m_action) {
+        if (key == shortcut->key())
+            return true;
+    }
+    return false;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {

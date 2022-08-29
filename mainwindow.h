@@ -57,9 +57,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void setShortcut(Action action, const QKeySequence& key);
+    void setShortcut(const Action action, const QKeySequence& key);
 
-    QKeySequence getShortcut(const Action& action) const;
+    QKeySequence getShortcut(const Action action) const;
+
+    bool checkShortcutConflit(const QKeySequence& key) const;
 
 private slots:
     void on_action_3_triggered();

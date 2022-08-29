@@ -32,13 +32,26 @@ bool KeyBinding::eventFilter(QObject *obj, QEvent *event) {
     QLineEdit *qLineEdit = qobject_cast<QLineEdit*>(obj);
     if (event->type() == QEvent::FocusIn) {
         qLineEdit->setText("");
+        ui->keyConflitMsg->hide();
     }
     if (event->type() == QEvent::KeyRelease) {
         QKeyEvent *keyEvent{ static_cast<QKeyEvent *>(event) };
         this->setFocus();       //unFocus current LineEdit
 
-        m_mainWindow->setShortcut(m_actionMapper[qLineEdit], keyEvent->key());
-        qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
+        //assign same key as original
+        if (keyEvent->key() == m_mainWindow->getShortcut(m_actionMapper[qLineEdit])) {
+            qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
+            return QObject::eventFilter(obj, event);
+        }
+
+        if (!m_mainWindow->checkShortcutConflit(keyEvent->key())) {
+            m_mainWindow->setShortcut(m_actionMapper[qLineEdit], keyEvent->key());
+            qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
+        }
+        else {  //key conflit
+            qLineEdit->setText(m_mainWindow->getShortcut(m_actionMapper[qLineEdit]).toString());
+            ui->keyConflitMsg->show();
+        }
     }
     return QObject::eventFilter(obj, event);
 }
