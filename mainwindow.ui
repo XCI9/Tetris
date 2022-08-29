@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+  background : rgb(32, 32, 32);
+}
+
+QMenuBar{
+    background : rgb(32, 32, 32);
+    color : rgb(208, 208, 208);
+}
+
+/*unknown why*/
+QMenuBar::item:selected{
+    background : rgb(65, 65, 65);
+}
+
+QMenu{
+    background : rgb(32, 32, 32);
+    color : rgb(208, 208, 208);
+}
+QMenu:selected{
+    background : rgb(65, 65, 65);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuTetris">
+    <property name="styleSheet">
+     <string notr="true">:hover{
+    background-color: rgb(65, 65, 65);
+}</string>
+    </property>
+    <property name="title">
+     <string>設定</string>
+    </property>
+    <addaction name="action_3"/>
+    <addaction name="action_7"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>遊戲</string>
+    </property>
+    <addaction name="action_10"/>
+    <addaction name="action_11"/>
+   </widget>
+   <addaction name="menuTetris"/>
+   <addaction name="menu"/>
+  </widget>
+  <action name="action_3">
+   <property name="text">
+    <string>按鍵綁定</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>音量</string>
+   </property>
+  </action>
+  <action name="action_9">
+   <property name="text">
+    <string>新遊戲</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="action_10">
+   <property name="text">
+    <string>暫停</string>
+   </property>
+  </action>
+  <action name="action_11">
+   <property name="text">
+    <string>重新開始</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
