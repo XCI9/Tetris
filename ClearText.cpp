@@ -1,13 +1,11 @@
 #include "ClearText.h"
 
-
-
-ClearText::ClearText():
-    m_normalText{ new QGraphicsTextItem{}},
-    m_perfectClearText{ new QGraphicsTextItem{}},
-    m_comboText{ new QGraphicsTextItem{}},
-    m_backToBackText{ new QGraphicsTextItem{}},
-    m_scoreText{ new QGraphicsTextItem{}},
+ClearText::ClearText() :
+    m_normalText{ new QGraphicsTextItem{} },
+    m_perfectClearText{ new QGraphicsTextItem{} },
+    m_comboText{ new QGraphicsTextItem{} },
+    m_backToBackText{ new QGraphicsTextItem{} },
+    m_scoreText{ new QGraphicsTextItem{} },
     m_textTimer{ new QTimeLine(2000) }
 {
     //ScoreText

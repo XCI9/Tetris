@@ -47,7 +47,9 @@ void MainWindow::actionInit() {
     setShortcut(Action::HardDrop,        Qt::Key_Space);
     setShortcut(Action::RotateClockwise, Qt::Key_Z);
     setShortcut(Action::RotateClockwise2,Qt::Key_Up);
-    setShortcut(Action::RotateCounterClockwise,Qt::Key_X);
+    setShortcut(Action::VolumeUp,        Qt::Key_Equal);
+    setShortcut(Action::VolumeDown,      Qt::Key_Minus);
+    setShortcut(Action::Mute,            Qt::Key_M);
 
     connect(m_action[Action::MoveDown],         &QShortcut::activated, this ,[&]{scene->moveDown();});
     connect(m_action[Action::MoveLeft],         &QShortcut::activated, this ,[&]{scene->moveLeft();});
@@ -57,6 +59,9 @@ void MainWindow::actionInit() {
     connect(m_action[Action::RotateClockwise],  &QShortcut::activated, this ,[&]{scene->rotateClockwise();});
     connect(m_action[Action::RotateClockwise2], &QShortcut::activated, this ,[&]{scene->rotateClockwise();});
     connect(m_action[Action::RotateCounterClockwise], &QShortcut::activated, this ,[&]{scene->rotateCounterClockwise();});
+    connect(m_action[Action::VolumeDown],       &QShortcut::activated, this, [&] {scene->volumeDown(); });
+    connect(m_action[Action::VolumeUp],         &QShortcut::activated, this, [&] {scene->volumeUp(); });
+    connect(m_action[Action::Mute],             &QShortcut::activated, this, [&] {scene->volumeMute(); });
 }
 
 void MainWindow::setShortcut(const Action action, const QKeySequence& key) {
