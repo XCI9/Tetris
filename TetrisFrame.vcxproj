@@ -190,6 +190,7 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bgm.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="ClearText.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="mainwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bgm.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
     <QtMoc Include="ClearText.h">

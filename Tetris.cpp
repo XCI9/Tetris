@@ -8,8 +8,7 @@ Tetris::Tetris() :
     m_gameInfo{ new GameInfo{} },
     m_clearText{ new ClearText{} },
     m_gamePause{ new GamePause{} },
-    m_bgmOutput{ new QAudioOutput{} },
-    m_bgmSource{ new QMediaPlayer{} }
+    m_bgm{ new Bgm{} }
 {
     m_holdBlock->setPos(0, 0);
     this->addItem(m_holdBlock);
@@ -34,8 +33,6 @@ Tetris::Tetris() :
 
     //init timer
     //m_lockTimer.start();
-
-    bgmInit();
 
     m_timer = new Timer{};
     connect(m_timer, &Timer::timeout, this, [&] {tick(); });
@@ -182,24 +179,14 @@ void Tetris::resume(){
 }
 
 void Tetris::volumeUp() {
-    m_bgmOutput->setVolume(m_bgmOutput->volume()+0.1);
+    m_bgm->volumeUp();
 }
 
 void Tetris::volumeDown() {
-    m_bgmOutput->setVolume(m_bgmOutput->volume() - 0.1);
-
+    m_bgm->volumeDown();
 };
 
 void Tetris::volumeMute() {
-    m_bgmOutput->setMuted(!m_bgmOutput->isMuted());
+    m_bgm->mute();
 };
 
-void Tetris::bgmInit() {
-    m_bgmSource->setSource(QUrl::fromLocalFile("bgm.mp3"));    
-    m_bgmSource->setLoops(QMediaPlayer::Infinite);
-    m_bgmSource->setAudioOutput(m_bgmOutput);
-
-    m_bgmOutput->setVolume(50);
-
-    m_bgmSource->play();
-};
