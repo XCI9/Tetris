@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <QMainWindow>
 #include <map>
 #include <QAction>
@@ -26,7 +25,8 @@ class MainWindow : public QMainWindow {
         Hold,
         VolumeUp,
         VolumeDown,
-        Mute
+        Mute,
+        Pause
     };
 
     enumArray<Action,QShortcut*> m_action;
@@ -34,17 +34,6 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
     std::map<Action, QAction*> m_keyMapping;
-    QAction* m_actionRotateClockwise;
-    QAction* m_actionRotateClockwise2;
-    QAction* m_actionRotateCounterClockwise;
-    QAction* m_actionMoveDown;
-    QAction* m_actionMoveRight;
-    QAction* m_actionMoveLeft;
-    QAction* m_actionHardDrop;
-    QAction* m_actionHold;
-    QAction* m_actionVolumeUp;
-    QAction* m_actionVolumeDown;
-    QAction* m_actionMute;
 
     Tetris* scene;
 

@@ -13,8 +13,6 @@
 #include <QKeyEvent>
 #include <QShortcut>
 #include <QKeySequence>
-#include <QMediaPlayer>
-#include <QAudioOutput>
 
 class Tetris : public QGraphicsScene{
     Q_OBJECT
@@ -42,9 +40,6 @@ class Tetris : public QGraphicsScene{
 
     //void keyPressEvent(QKeyEvent* event);
 
-    void bgmInit();
-
-
     void tick();
 public:
     void moveDown();
@@ -70,6 +65,8 @@ public:
     void volumeDown();
 
     void volumeMute();
+
+    void switchPlayStop();
 
     Tetris();
 };

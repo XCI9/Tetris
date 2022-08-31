@@ -47,6 +47,8 @@ public:
     QLineEdit *lineEditMute;
     QLabel *label_13;
     QLabel *keyConflitMsg;
+    QLineEdit *lineEditPause;
+    QLabel *label_12;
 
     void setupUi(QDialog *KeyBinding)
     {
@@ -139,6 +141,12 @@ public:
         keyConflitMsg->setStyleSheet(QString::fromUtf8("*{\n"
 "  color : rgb(255, 0, 0)\n"
 "}"));
+        lineEditPause = new QLineEdit(KeyBinding);
+        lineEditPause->setObjectName(QString::fromUtf8("lineEditPause"));
+        lineEditPause->setGeometry(QRect(210, 190, 41, 20));
+        label_12 = new QLabel(KeyBinding);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setGeometry(QRect(150, 190, 61, 16));
 
         retranslateUi(KeyBinding);
         QObject::connect(buttonBox, &QDialogButtonBox::accepted, KeyBinding, qOverload<>(&QDialog::accept));
@@ -163,6 +171,7 @@ public:
         label_11->setText(QCoreApplication::translate("KeyBinding", "\351\235\234\351\237\263", nullptr));
         label_13->setText(QCoreApplication::translate("KeyBinding", "\346\214\211\351\215\265\347\266\201\345\256\232", nullptr));
         keyConflitMsg->setText(QCoreApplication::translate("KeyBinding", "\345\277\253\346\215\267\351\215\265\344\270\215\345\217\257\351\207\215\350\244\207!", nullptr));
+        label_12->setText(QCoreApplication::translate("KeyBinding", "\346\232\253\345\201\234", nullptr));
     } // retranslateUi
 
 };

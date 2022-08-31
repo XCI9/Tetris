@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 #include "keybinding.h"
 
-
-
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , scene{ new Tetris{} }
@@ -50,6 +48,7 @@ void MainWindow::actionInit() {
     setShortcut(Action::VolumeUp,        Qt::Key_Equal);
     setShortcut(Action::VolumeDown,      Qt::Key_Minus);
     setShortcut(Action::Mute,            Qt::Key_M);
+    setShortcut(Action::Pause,           Qt::Key_P);
 
     connect(m_action[Action::MoveDown],         &QShortcut::activated, this ,[&]{scene->moveDown();});
     connect(m_action[Action::MoveLeft],         &QShortcut::activated, this ,[&]{scene->moveLeft();});
@@ -62,6 +61,7 @@ void MainWindow::actionInit() {
     connect(m_action[Action::VolumeDown],       &QShortcut::activated, this, [&] {scene->volumeDown(); });
     connect(m_action[Action::VolumeUp],         &QShortcut::activated, this, [&] {scene->volumeUp(); });
     connect(m_action[Action::Mute],             &QShortcut::activated, this, [&] {scene->volumeMute(); });
+    connect(m_action[Action::Pause],            &QShortcut::activated, this, [&] {scene->switchPlayStop(); });
 }
 
 void MainWindow::setShortcut(const Action action, const QKeySequence& key) {

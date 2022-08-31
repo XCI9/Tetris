@@ -188,5 +188,13 @@ void Tetris::volumeDown() {
 
 void Tetris::volumeMute() {
     m_bgm->mute();
-};
+}
+
+void Tetris::switchPlayStop() {
+    if (m_timer->checkPause())
+        resume();
+    else
+        pause();
+}
+;
 

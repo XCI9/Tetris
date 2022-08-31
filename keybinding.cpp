@@ -1,6 +1,5 @@
 #include "keybinding.h"
 #include "ui_keybinding.h"
-#include <iostream>
 
 KeyBinding::KeyBinding(MainWindow *mainWindow) :
     QDialog{},
@@ -21,6 +20,7 @@ KeyBinding::KeyBinding(MainWindow *mainWindow) :
     m_actionMapper[ui->lineEditVolUp] = MainWindow::Action::VolumeUp;
     m_actionMapper[ui->lineEditVolDown] = MainWindow::Action::VolumeDown;
     m_actionMapper[ui->lineEditMute] = MainWindow::Action::Mute;
+    m_actionMapper[ui->lineEditPause] = MainWindow::Action::Pause;
 
     for(auto& [lineEdit, action] : m_actionMapper){
         lineEdit->installEventFilter(this);
