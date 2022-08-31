@@ -16,13 +16,13 @@ int Core::clearLine() {
     for (const auto& line : currentTetrominoesLine) {
         if (std::all_of(std::execution::par_unseq,
                         m_board[line].begin(), m_board[line].end(),
-                        [](Block::Type block) { return block != Block::Type::Empty; })) {
+                        [](Block::Type block) { return block != Block::Empty; })) {
             for (int aboveRow{ line }; aboveRow > 0; aboveRow--) {
                 m_board[aboveRow] = m_board[aboveRow - 1];
             }
             //fill top row with empty
             for (auto& col : m_board[0])
-                col = Block::Type::Empty;
+                col = Block::Empty;
             clearCount++;
         }
     }
@@ -30,7 +30,7 @@ int Core::clearLine() {
     //buttom row all empty
     if (std::all_of(std::execution::par_unseq,
                     m_board[m_height - 1].begin(), m_board[m_height - 1].end(),
-                    [](Block::Type block) { return block == Block::Type::Empty; })) {
+                    [](Block::Type block) { return block == Block::Empty; })) {
         m_isLastClearPerfect = true;
     }
 
@@ -44,7 +44,7 @@ int Core::chooseSummonPosition() {
     for (int i{ 2 }; i >= 0; i--, validYPosition--) {
         validYPosition = i;
         for (auto& [x, y] : m_currentTetrominoes) {
-            if (m_board[y + i + m_bufferSize-2][x] != Block::Type::Empty)
+            if (m_board[y + i + m_bufferSize-2][x] != Block::Empty)
                 validYPosition = -1;
         }
         if (validYPosition == i)
@@ -60,7 +60,7 @@ void Core::summonTetrominoes() {
     m_currentTetrominoesMove = QPoint(0, 0);
 
     while (m_blockQueue.size() < 8) {
-        Block::Type nextChunk[7]{Block::Type::L, Block::Type::J, Block::Type::S, Block::Type::Z, Block::Type::T, Block::Type::I, Block::Type::O};
+        Block::Type nextChunk[7]{Block::L, Block::J, Block::S, Block::Z, Block::T, Block::I, Block::O};
 
         //random the seven blocks
         for (int i{ 6 }; i > 0; i--) {
@@ -104,7 +104,7 @@ bool Core::isValidPosition(const TetrominoesCoord& Tetrominoes, const QPoint& sh
         block += m_currentTetrominoesMove;
         if (block.x() + shift.x() < 0 || block.y() + shift.y() < 0 || block.x() + shift.x() >= m_width || block.y() + shift.y() >= m_height)
             return false;
-        else if (m_board[block.y() + shift.y()][block.x() + shift.x()] != Block::Type::Empty)
+        else if (m_board[block.y() + shift.y()][block.x() + shift.x()] != Block::Empty)
             return false;
     }
     return true;
@@ -114,7 +114,7 @@ bool Core::isValidPreviewPosition (const TetrominoesCoord& Tetrominoes) const{
     for (const auto& [x, y] : Tetrominoes) {
         if (x < 0 || y < 0 || x >= m_width || y >= m_height)
             return false;
-        else if (m_board[y][x] != Block::Type::Empty)
+        else if (m_board[y][x] != Block::Empty)
             return false;
     }
     return true;
@@ -137,7 +137,7 @@ Core::TetrominoesCoord Core::calculatePreviewPosition() const {
 
 void Core::moveRightTetrominoes() {
     for (const auto& [x, y] : m_currentTetrominoes) {
-        if (x + 1 >= m_width || m_board[y][x + 1] != Block::Type::Empty)
+        if (x + 1 >= m_width || m_board[y][x + 1] != Block::Empty)
             return;
     }
 
@@ -151,7 +151,7 @@ void Core::moveRightTetrominoes() {
 
 void Core::moveLeftTetrominoes() {
     for (const auto& [x, y] : m_currentTetrominoes) {
-        if (x - 1 < 0 || m_board[y][x - 1] != Block::Type::Empty)
+        if (x - 1 < 0 || m_board[y][x - 1] != Block::Empty)
             return;
     }
 
@@ -166,7 +166,7 @@ void Core::moveLeftTetrominoes() {
 void Core::moveDownTetrominoes(bool isSoftDrop) {
     //check if touch floor
     for (const auto& [x, y] : m_currentTetrominoes) {
-        if (y + 1 >= m_height || m_board[y + 1][x] != Block::Type::Empty) {
+        if (y + 1 >= m_height || m_board[y + 1][x] != Block::Empty) {
             putCurrentTetrominoes();
             return;
         }
@@ -198,7 +198,7 @@ void Core::TSpinCheck(){
     m_isLastClearTSpin = false;
 
     //current block is T and operation is spin =>TSpin
-    if (m_currentTetrominoesShape != Block::Type::T || m_lastOperation != Operation::Spin)
+    if (m_currentTetrominoesShape != Block::T || m_lastOperation != Operation::Spin)
         return;
 
     QPoint TPosition{ m_currentTetrominoes[2] };
@@ -211,15 +211,15 @@ void Core::TSpinCheck(){
         if (TPosition.y() + 1 == m_height)  //at Bottom
             tetrominoCountAtBackCorner = 2;
         else {
-            if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Type::Empty)
+            if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
-            if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Type::Empty)
+            if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
         }
 
-        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     case Rotation::Right:
@@ -229,29 +229,29 @@ void Core::TSpinCheck(){
         if (TPosition.x() - 1 < 0)  //Beside Left Wall
             tetrominoCountAtBackCorner = 2;
         else {
-            if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Type::Empty)
+            if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
-            if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Type::Empty)
+            if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
         }
 
-        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     case Rotation::SpawnUpSideDown:
         //■ ■ ■
         //  ■
-        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
             tetrominoCountAtBackCorner++;
-        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
             tetrominoCountAtBackCorner++;
 
 
-        if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     case Rotation::Left:
@@ -261,15 +261,15 @@ void Core::TSpinCheck(){
         if (TPosition.x() + 1 == m_width)  //Beside Right Wall
             tetrominoCountAtBackCorner = 2;
         else {
-            if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Type::Empty)
+            if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
-            if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Type::Empty)
+            if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
         }
 
-        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Type::Empty)
+        if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     }
@@ -430,7 +430,7 @@ void Core::resetLockTimer() {
 
 //rotate Right
 void Core::rotateClockwise() {
-    if (m_currentTetrominoesShape == Block::Type::O)
+    if (m_currentTetrominoesShape == Block::O)
         return;
 
     //clear current
@@ -454,7 +454,7 @@ void Core::rotateClockwise() {
         directionAfterSpin = Rotation::Spawn;
     }
 
-    if(m_currentTetrominoesShape == Block::Type::I) [[unlikely]] {
+    if(m_currentTetrominoesShape == Block::I) [[unlikely]] {
         for (auto& block : rotationPlace) {
             block = QPoint(block.y(), block.x());
             block.setX(3 - block.x());
@@ -471,7 +471,7 @@ void Core::rotateClockwise() {
 }
 
 void Core::judgeSpinPosition(const TetrominoesCoord& rotationPlace, const Rotation directionAfterSpin, const SpinDirection spinDirection) {
-    if (m_currentTetrominoesShape == Block::Type::I) [[unlikely]] {
+    if (m_currentTetrominoesShape == Block::I) [[unlikely]] {
         ISpinType currentRotationType{};
 
         if ((directionAfterSpin == Rotation::Spawn || directionAfterSpin == Rotation::Right)
@@ -539,7 +539,7 @@ void Core::judgeSpinPosition(const TetrominoesCoord& rotationPlace, const Rotati
 
 //rotate Left
 void Core::rotateCounterClockwise() {
-    if (m_currentTetrominoesShape == Block::Type::O)
+    if (m_currentTetrominoesShape == Block::O)
         return;
 
     //clear current
@@ -563,7 +563,7 @@ void Core::rotateCounterClockwise() {
         directionAfterSpin = Rotation::Spawn;
     }
 
-    if(m_currentTetrominoesShape == Block::Type::I) [[unlikely]] {
+    if(m_currentTetrominoesShape == Block::I) [[unlikely]] {
         for (auto& block : rotationPlace) {
             block = QPoint(block.y(), block.x());
             block.setY(3 - block.y());
@@ -634,7 +634,7 @@ void Core::newGame() {
 
     for (auto& row : m_board)
         for (auto& block : row)
-            block = Block::Type::Empty;
+            block = Block::Empty;
 
     m_resetTimerCount = 0;
     m_isReachFloor = false;

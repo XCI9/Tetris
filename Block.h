@@ -36,6 +36,8 @@ namespace Block{
         Garbage
     };
 
+    using enum Type;
+
     enum class SpinDirection : bool{
         Clockwise,
         CounterClockwise,
