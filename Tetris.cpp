@@ -71,6 +71,9 @@ Tetris::Tetris() :
 //}
 
 void Tetris::update() {
+    if (m_core.m_isGameOver)
+        return;
+
     for (int row{ 0 }; row < m_board->m_height; row++)
         for (int col{ 0 }; col < m_board->m_width; col++)
             m_board->update(row, col, m_core.m_board[row + m_core.m_bufferSize][col]);
@@ -78,13 +81,15 @@ void Tetris::update() {
     Block::TetrominoesCoord previewPosition{ m_core.calculatePreviewPosition() };
     for (const auto& [x, y] : previewPosition) {
         if (m_core.m_board[y][x] == Block::Type::Empty)
-            m_board->update(y - m_core.m_bufferSize, x, Block::Type::Preview);
+            if(y - m_core.m_bufferSize >= 0)
+                m_board->update(y - m_core.m_bufferSize, x, Block::Type::Preview);
     }
 
     for (auto [x, y] : m_core.m_currentTetrominoes) {
         //x += m_core.m_currentTetrominoesMove.x();
         //y += m_core.m_currentTetrominoesMove.y();
-        m_board->update(y - m_core.m_bufferSize, x, m_core.m_currentTetrominoesShape);
+        if (y - m_core.m_bufferSize >= 0)
+            m_board->update(y - m_core.m_bufferSize, x, m_core.m_currentTetrominoesShape);
     }
 
     m_nextBlock->addBlock(m_core.m_blockQueue);
