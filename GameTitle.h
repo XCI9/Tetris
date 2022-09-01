@@ -8,11 +8,15 @@
 #include <QGraphicsItemGroup>
 #include <QPen>
 
-class GamePause : public  QGraphicsItemGroup {
+class GameTitle : public  QGraphicsItemGroup {
     QGraphicsRectItem* m_background;
-    QGraphicsTextItem* m_text;
-    QGraphicsTextItem* m_hintText;
+    QGraphicsTextItem* m_title;
+    QGraphicsTextItem* m_subTitle;
 
 public:
-    GamePause();
+    GameTitle();
+
+    void setTitleText(const QString& text);
+
+    void setSubTitleText(const QString& text);
 };

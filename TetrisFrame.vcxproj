@@ -196,7 +196,7 @@
     <ClCompile Include="ClearText.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="GameInfo.cpp" />
-    <ClCompile Include="GamePause.cpp" />
+    <ClCompile Include="GameTitle.cpp" />
     <ClCompile Include="HoldBlock.cpp" />
     <ClCompile Include="NextBlock.cpp" />
     <ClCompile Include="Tetris.cpp" />
@@ -213,7 +213,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="EnumArray.h" />
     <ClInclude Include="GameInfo.h" />
-    <ClInclude Include="GamePause.h" />
+    <ClInclude Include="GameTitle.h" />
     <ClInclude Include="HoldBlock.h" />
     <ClInclude Include="NextBlock.h" />
     <QtMoc Include="Tetris.h">

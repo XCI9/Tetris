@@ -52,7 +52,7 @@
     <ClCompile Include="GameInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GamePause.cpp">
+    <ClCompile Include="GameTitle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HoldBlock.cpp">
@@ -96,7 +96,7 @@
     <ClInclude Include="GameInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GamePause.h">
+    <ClInclude Include="GameTitle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HoldBlock.h">

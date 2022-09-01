@@ -7,7 +7,7 @@
 #include "GameInfo.h"
 #include "ClearText.h"
 #include "Timer.h"
-#include "GamePause.h"
+#include "GameTitle.h"
 #include "Bgm.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
@@ -25,7 +25,7 @@ class Tetris : public QGraphicsScene{
     NextBlock* m_nextBlock;
     GameInfo* m_gameInfo;
     ClearText* m_clearText;
-    GamePause* m_gamePause;
+    GameTitle* m_gameTitle;
 
     Timer* m_timer;
     int m_counter{ 0 };
@@ -67,6 +67,8 @@ public:
     void volumeMute();
 
     void switchPlayStop();
+
+    void gameOver();
 
     Tetris();
 };

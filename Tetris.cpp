@@ -7,7 +7,7 @@ Tetris::Tetris() :
     m_nextBlock{ new NextBlock{ m_core.m_blockQueue } },
     m_gameInfo{ new GameInfo{} },
     m_clearText{ new ClearText{} },
-    m_gamePause{ new GamePause{} },
+    m_gameTitle{ new GameTitle{} },
     m_bgm{ new Bgm{} }
 {
     m_holdBlock->setPos(0, 0);
@@ -25,9 +25,9 @@ Tetris::Tetris() :
     m_clearText->setPos(150, 0);
     this->addItem(m_clearText);
 
-    m_gamePause->setPos(125 + 12.5, 100);
-    this->addItem(m_gamePause);
-    m_gamePause->hide();
+    m_gameTitle->setPos(125 + 12.5, 100);
+    this->addItem(m_gameTitle);
+    m_gameTitle->hide();
 
     update();
 
@@ -71,8 +71,10 @@ Tetris::Tetris() :
 //}
 
 void Tetris::update() {
-    if (m_core.m_isGameOver)
+    if (m_core.m_isGameOver) {
+        gameOver();
         return;
+    }
 
     for (int row{ 0 }; row < m_board->m_height; row++)
         for (int col{ 0 }; col < m_board->m_width; col++)
@@ -175,12 +177,14 @@ void Tetris::hold(){
 
 void Tetris::pause(){
     m_timer->pause();
-    m_gamePause->show();
+    m_gameTitle->setTitleText("Pause");
+    m_gameTitle->setSubTitleText("");
+    m_gameTitle->show();
 }
 
 void Tetris::resume(){
     m_timer->resume();
-    m_gamePause->hide();
+    m_gameTitle->hide();
 }
 
 void Tetris::volumeUp() {
@@ -198,8 +202,20 @@ void Tetris::volumeMute() {
 void Tetris::switchPlayStop() {
     if (m_timer->checkPause())
         resume();
-    else
+    else {
         pause();
+        m_gameTitle->setTitleText("Pause");
+        m_gameTitle->setSubTitleText("Press P to resume.");
+        m_gameTitle->show();
+    }
 }
-;
+
+void Tetris::gameOver() {
+    m_timer->stop();
+    m_gameTitle->setTitleText("GameOver");
+    m_gameTitle->setSubTitleText("Press P to restart.");
+    m_gameTitle->show();
+
+}
+
 
