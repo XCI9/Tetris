@@ -45,7 +45,6 @@ public:
     QLineEdit *lineEditVolDown;
     QLabel *label_11;
     QLineEdit *lineEditMute;
-    QLabel *label_13;
     QLabel *keyConflitMsg;
     QLineEdit *lineEditPause;
     QLabel *label_12;
@@ -61,9 +60,9 @@ public:
 "}"));
         buttonBox = new QDialogButtonBox(KeyBinding);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(80, 260, 191, 32));
+        buttonBox->setGeometry(QRect(190, 260, 81, 32));
         buttonBox->setOrientation(Qt::Horizontal);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox->setStandardButtons(QDialogButtonBox::Ok);
         lineEditMoveL = new QLineEdit(KeyBinding);
         lineEditMoveL->setObjectName(QString::fromUtf8("lineEditMoveL"));
         lineEditMoveL->setGeometry(QRect(90, 40, 41, 20));
@@ -130,9 +129,6 @@ public:
         lineEditMute = new QLineEdit(KeyBinding);
         lineEditMute->setObjectName(QString::fromUtf8("lineEditMute"));
         lineEditMute->setGeometry(QRect(210, 160, 41, 20));
-        label_13 = new QLabel(KeyBinding);
-        label_13->setObjectName(QString::fromUtf8("label_13"));
-        label_13->setGeometry(QRect(30, 10, 61, 16));
         keyConflitMsg = new QLabel(KeyBinding);
         keyConflitMsg->setObjectName(QString::fromUtf8("keyConflitMsg"));
         keyConflitMsg->setEnabled(true);
@@ -157,7 +153,7 @@ public:
 
     void retranslateUi(QDialog *KeyBinding)
     {
-        KeyBinding->setWindowTitle(QCoreApplication::translate("KeyBinding", "Dialog", nullptr));
+        KeyBinding->setWindowTitle(QCoreApplication::translate("KeyBinding", "\346\214\211\351\215\265\347\266\201\345\256\232", nullptr));
         label->setText(QCoreApplication::translate("KeyBinding", "\345\267\246\347\247\273", nullptr));
         label_2->setText(QCoreApplication::translate("KeyBinding", "\345\217\263\347\247\273", nullptr));
         label_3->setText(QCoreApplication::translate("KeyBinding", "\351\240\206\346\231\202\351\220\230\346\227\213\350\275\2111", nullptr));
@@ -169,7 +165,6 @@ public:
         label_9->setText(QCoreApplication::translate("KeyBinding", "\351\237\263\351\207\217\345\244\247", nullptr));
         label_10->setText(QCoreApplication::translate("KeyBinding", "\351\237\263\351\207\217\345\260\217", nullptr));
         label_11->setText(QCoreApplication::translate("KeyBinding", "\351\235\234\351\237\263", nullptr));
-        label_13->setText(QCoreApplication::translate("KeyBinding", "\346\214\211\351\215\265\347\266\201\345\256\232", nullptr));
         keyConflitMsg->setText(QCoreApplication::translate("KeyBinding", "\345\277\253\346\215\267\351\215\265\344\270\215\345\217\257\351\207\215\350\244\207!", nullptr));
         label_12->setText(QCoreApplication::translate("KeyBinding", "\346\232\253\345\201\234", nullptr));
     } // retranslateUi

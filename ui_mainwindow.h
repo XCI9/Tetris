@@ -76,6 +76,7 @@ public:
         action_11->setObjectName(QString::fromUtf8("action_11"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setAutoFillBackground(false);
         verticalLayout_3 = new QVBoxLayout(centralwidget);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         graphicsView = new QGraphicsView(centralwidget);
@@ -86,7 +87,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 600, 17));
+        menubar->setGeometry(QRect(0, 0, 600, 22));
         menuTetris = new QMenu(menubar);
         menuTetris->setObjectName(QString::fromUtf8("menuTetris"));
         menuTetris->setStyleSheet(QString::fromUtf8(":hover{\n"
@@ -111,7 +112,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Tetris", nullptr));
         action_3->setText(QCoreApplication::translate("MainWindow", "\346\214\211\351\215\265\347\266\201\345\256\232", nullptr));
         action_7->setText(QCoreApplication::translate("MainWindow", "\351\237\263\351\207\217", nullptr));
         action_9->setText(QCoreApplication::translate("MainWindow", "\346\226\260\351\201\212\346\210\262", nullptr));
