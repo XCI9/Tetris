@@ -50,6 +50,8 @@ public:
 
     QKeySequence getShortcut(const Action action) const;
 
+    void setEnabledShortcut(bool enable);
+
     bool checkShortcutConflit(const QKeySequence& key) const;
 
 private slots:

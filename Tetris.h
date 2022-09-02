@@ -36,11 +36,17 @@ class Tetris : public QGraphicsScene{
                         0.388f, 0.59f, 0.92f, 1.46f, 2.36f, 3.91f, 6.61f, 11.43f, 20.f };
     char m_currentSpeed{ 0 };
 
+    bool m_isPauseByUser{ false };
+
     void update();
 
     //void keyPressEvent(QKeyEvent* event);
 
     void tick();
+
+signals:
+    void gameOverSignal();
+
 public:
     void moveDown();
 
@@ -69,6 +75,10 @@ public:
     void switchPlayStop();
 
     void gameOver();
+
+    bool isNeedAnyKeyHandle();
+
+    void anyKeyHandle();
 
     Tetris();
 };

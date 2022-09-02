@@ -200,12 +200,15 @@ void Tetris::volumeMute() {
 }
 
 void Tetris::switchPlayStop() {
-    if (m_timer->checkPause())
+    if (m_timer->checkPause()) {
         resume();
+        m_isPauseByUser = false;
+    }
     else {
         pause();
+        m_isPauseByUser = true;
         m_gameTitle->setTitleText("Pause");
-        m_gameTitle->setSubTitleText("Press P to resume.");
+        m_gameTitle->setSubTitleText("Press any key to resume.");
         m_gameTitle->show();
     }
 }
@@ -215,7 +218,25 @@ void Tetris::gameOver() {
     m_gameTitle->setTitleText("GameOver");
     m_gameTitle->setSubTitleText("Press P to restart.");
     m_gameTitle->show();
+    gameOverSignal();
+}
 
+bool Tetris::isNeedAnyKeyHandle() {
+    if (m_core.m_isGameOver)
+        return true;
+    if (m_isPauseByUser)
+        return true;
+    return false;
+}
+
+void Tetris::anyKeyHandle() {
+    if (m_core.m_isGameOver) {
+        m_core.newGame();
+        m_timer->start();
+        m_gameTitle->hide();
+    }
+    if (m_isPauseByUser)
+        resume();
 }
 
 
