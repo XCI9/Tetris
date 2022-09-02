@@ -7,6 +7,10 @@
 class Bgm : QAudioOutput {
     QMediaPlayer* m_player;
 
+    int m_volume;
+
+    void applyVolume();
+
 public:
     Bgm();
 

@@ -1,37 +1,44 @@
 #include "Bgm.h"
 
 Bgm::Bgm() :
-    m_player{ new QMediaPlayer{} }
+    m_player{ new QMediaPlayer{} },
+    m_volume{ 50 }
 {
     m_player->setSource(QUrl::fromLocalFile("bgm.mp3"));
     m_player->setLoops(QMediaPlayer::Infinite);
     m_player->setAudioOutput(this);
 
-    setVolume(1.f);
+    applyVolume();
 
     m_player->play();
 }
 
+void Bgm::applyVolume() {
+    // volumeSliderValue is in the range [0..100]
+    //https://doc.qt.io/qt-6/qaudio.html#convertVolume
+    float linearVolume{ QAudio::convertVolume(m_volume / 100.f,
+                                               QAudio::LogarithmicVolumeScale,
+                                               QAudio::LinearVolumeScale) };
+
+    setVolume(linearVolume);
+}
+
 void Bgm::volumeUp() {
-    //volume ranging from 0 to 100000
-    float currentVolume{ std::powf(10, volume() * 5) };
+    m_volume += 5;
 
-    currentVolume += 5000;
-    if (currentVolume > 100000)
-        currentVolume = 100000;
+    if (m_volume > 100)
+        m_volume = 100;
 
-    setVolume(std::log10(currentVolume) / 5);
+    applyVolume();
 }
 
 void Bgm::volumeDown() {
-    //volume ranging from 0 to 100000
-    float currentVolume{ std::powf(10, volume() * 5) };
+    m_volume -= 5;
 
-    currentVolume -= 5000;
-    if (currentVolume < 0)
-        currentVolume = 0;
+    if (m_volume < 0)
+        m_volume = 0;
 
-    setVolume(std::log10(currentVolume) / 5);
+    applyVolume();
 }
 
 void Bgm::mute() {
