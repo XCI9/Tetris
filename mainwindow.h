@@ -14,6 +14,8 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
     friend class KeyBinding;
+    friend class VolumeAdjust;
+
     enum class Action{
         MoveDown,
         MoveLeft,
@@ -54,8 +56,14 @@ public:
 
     bool checkShortcutConflit(const QKeySequence& key) const;
 
+    void setVolume(const int value);
+
+    void mute(bool mute);
+
 private slots:
     void on_action_3_triggered();
+
+    void on_action_7_triggered();
 
 private:
     Ui::MainWindow *ui;

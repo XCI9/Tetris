@@ -18,5 +18,11 @@ public:
 
     void volumeDown();
 
+    void volumeSet(const int value);
+
+    int getVolume() const;
+
     void mute();
+
+    void mute(bool mute);
 };

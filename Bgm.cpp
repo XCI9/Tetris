@@ -16,9 +16,7 @@ Bgm::Bgm() :
 void Bgm::applyVolume() {
     // volumeSliderValue is in the range [0..100]
     //https://doc.qt.io/qt-6/qaudio.html#convertVolume
-    float linearVolume{ QAudio::convertVolume(m_volume / 100.f,
-                                               QAudio::LogarithmicVolumeScale,
-                                               QAudio::LinearVolumeScale) };
+    float linearVolume{ QAudio::convertVolume(m_volume / 100.f, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale) };
 
     setVolume(linearVolume);
 }
@@ -41,7 +39,22 @@ void Bgm::volumeDown() {
     applyVolume();
 }
 
+void Bgm::volumeSet(const int value) {
+    m_volume = value;
+
+    applyVolume();
+}
+
+int Bgm::getVolume() const {
+    return m_volume;
+}
+
 void Bgm::mute() {
     //flip muted
     setMuted(!isMuted());
+}
+
+void Bgm::mute(bool mute) {
+    //flip muted
+    setMuted(mute);
 }

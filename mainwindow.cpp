@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "keybinding.h"
+#include "VolumeAdjust.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -31,6 +32,15 @@ void MainWindow::on_action_3_triggered() {
     keyBinding.installEventFilter(this);
     keyBinding.setModal(true);   //獨佔模式
     keyBinding.exec();
+    scene->resume();
+}
+
+void MainWindow::on_action_7_triggered() {
+    scene->pause();
+    VolumeAdjust volumeAdjust{ this };
+    volumeAdjust.installEventFilter(this);
+    volumeAdjust.setModal(true);   //獨佔模式
+    volumeAdjust.exec();
     scene->resume();
 }
 
@@ -88,6 +98,14 @@ bool MainWindow::checkShortcutConflit(const QKeySequence& key) const {
     }
     return false;
 }
+
+void MainWindow::setVolume(const int value) {
+    scene->setVolume(value);
+}
+
+void MainWindow::mute(bool mute) {
+    scene->volumeMute(mute);
+};
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
     if (event->key() == Qt::Key_F11) {

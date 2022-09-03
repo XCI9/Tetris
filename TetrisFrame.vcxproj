@@ -203,11 +203,13 @@
     <ClCompile Include="keybinding.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="VolumeAdjust.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bgm.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
+    <QtMoc Include="VolumeAdjust.h" />
     <QtMoc Include="ClearText.h">
     </QtMoc>
     <ClInclude Include="Core.h" />
@@ -244,6 +246,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="volumeAdjust.ui" />
     <QtUic Include="keybinding.ui">
     </QtUic>
     <QtUic Include="mainwindow.ui">

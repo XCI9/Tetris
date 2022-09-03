@@ -72,6 +72,12 @@ public:
 
     void volumeMute();
 
+    void volumeMute(bool mute);
+
+    int getVolume() const;
+
+    void setVolume(const int value);
+
     void switchPlayStop();
 
     void gameOver();
