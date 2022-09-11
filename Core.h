@@ -15,10 +15,7 @@
 #include <QDebug>
 
 class Core{
-    friend class Board;
-    friend class HoldBlock;
     friend class Tetris;
-    friend class MainWindow;
 
     using SpinDirection = Block::SpinDirection;
     using SpinType = Block::SpinType;

@@ -40,36 +40,6 @@ Tetris::Tetris() :
     m_timer->start(17);  //0.017s ~= 60FPS
 }
 
-//void Tetris::keyPressEvent(QKeyEvent* event){
-    /*
-    switch(event->key()){
-    case Qt::Key_Up:
-    case Qt::Key_Z:
-        m_core.rotateClockwise();
-        break;
-    case Qt::Key_X:
-        m_core.rotateCounterClockwise();
-        break;
-    case Qt::Key_Down:
-        m_core.moveDownTetrominoes();
-        break;
-    case Qt::Key_Right:
-        m_core.moveRightTetrominoes();
-        break;
-    case Qt::Key_Left:
-        m_core.moveLeftTetrominoes();
-        break;
-    case Qt::Key_Space:
-        m_core.hardDrop();
-        break;
-    case Qt::Key_C:
-        m_core.holdCurrentTetrominoes();
-        m_holdBlock->setBlock(m_core.m_holdTetrominoesShape);
-        break;
-    }
-    update();*/
-//}
-
 void Tetris::update() {
     if (m_core.m_isGameOver) {
         gameOver();
