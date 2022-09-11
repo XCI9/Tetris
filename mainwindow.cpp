@@ -26,7 +26,7 @@ MainWindow::~MainWindow() {
 }
 
 
-void MainWindow::on_action_3_triggered() {
+void MainWindow::on_actionKeyBinding_triggered() {
     scene->pause();
     KeyBinding keyBinding{this};
     keyBinding.installEventFilter(this);
@@ -35,7 +35,7 @@ void MainWindow::on_action_3_triggered() {
     scene->resume();
 }
 
-void MainWindow::on_action_7_triggered() {
+void MainWindow::on_actionVolumeAdjust_triggered() {
     scene->pause();
     VolumeAdjust volumeAdjust{ this };
     volumeAdjust.installEventFilter(this);

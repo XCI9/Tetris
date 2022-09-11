@@ -61,9 +61,9 @@ public:
     void mute(bool mute);
 
 private slots:
-    void on_action_3_triggered();
+    void on_actionKeyBinding_triggered();
 
-    void on_action_7_triggered();
+    void on_actionVolumeAdjust_triggered();
 
 private:
     Ui::MainWindow *ui;

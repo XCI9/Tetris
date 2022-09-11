@@ -73,26 +73,25 @@ QMenu:selected{
     <property name="title">
      <string>設定</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="action_7"/>
-    <addaction name="separator"/>
+    <addaction name="actionKeyBinding"/>
+    <addaction name="actionVolumeAdjust"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>遊戲</string>
     </property>
-    <addaction name="action_10"/>
-    <addaction name="action_11"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionRestart"/>
    </widget>
    <addaction name="menuTetris"/>
    <addaction name="menu"/>
   </widget>
-  <action name="action_3">
+  <action name="actionKeyBinding">
    <property name="text">
     <string>按鍵綁定</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="actionVolumeAdjust">
    <property name="text">
     <string>音量</string>
    </property>
@@ -105,12 +104,12 @@ QMenu:selected{
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="action_10">
+  <action name="actionPause">
    <property name="text">
     <string>暫停</string>
    </property>
   </action>
-  <action name="action_11">
+  <action name="actionRestart">
    <property name="text">
     <string>重新開始</string>
    </property>
