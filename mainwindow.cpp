@@ -44,6 +44,15 @@ void MainWindow::on_actionVolumeAdjust_triggered() {
     scene->resume();
 }
 
+void MainWindow::on_actionRestart_triggered() {
+    scene->newGame();
+};
+
+void MainWindow::on_actionPause_triggered() {
+    scene->switchPlayStop(); 
+    setEnabledShortcut(false);
+};
+
 void MainWindow::actionInit() {
     for(auto& action : m_action)
         action = new QShortcut(this);

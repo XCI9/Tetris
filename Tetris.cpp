@@ -213,12 +213,16 @@ bool Tetris::isNeedAnyKeyHandle() {
 
 void Tetris::anyKeyHandle() {
     if (m_core.m_isGameOver) {
-        m_core.newGame();
-        m_timer->start();
-        m_gameTitle->hide();
+        newGame();
     }
     if (m_isPauseByUser)
         resume();
+}
+
+void Tetris::newGame() {
+    m_core.newGame();
+    m_timer->start();
+    m_gameTitle->hide();
 }
 
 

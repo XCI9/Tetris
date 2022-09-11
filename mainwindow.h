@@ -65,6 +65,9 @@ private slots:
 
     void on_actionVolumeAdjust_triggered();
 
+    void on_actionRestart_triggered();
+
+    void on_actionPause_triggered();
 private:
     Ui::MainWindow *ui;
 };

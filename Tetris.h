@@ -86,5 +86,7 @@ public:
 
     void anyKeyHandle();
 
+    void newGame();
+
     Tetris();
 };
