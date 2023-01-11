@@ -203,12 +203,14 @@
     <ClCompile Include="keybinding.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="TitleScreen.cpp" />
     <ClCompile Include="VolumeAdjust.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bgm.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="TitleScreen.h" />
     <QtMoc Include="VolumeAdjust.h" />
     <QtMoc Include="ClearText.h">
     </QtMoc>

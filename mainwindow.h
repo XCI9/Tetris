@@ -7,6 +7,7 @@
 #include <QGraphicsView>
 #include <QWindow>
 #include "Tetris.h"
+#include "TitleScreen.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,6 +39,8 @@ class MainWindow : public QMainWindow {
     std::map<Action, QAction*> m_keyMapping;
 
     Tetris* scene;
+
+    TitleScreen* titleScreen;
 
     void actionInit();
 

@@ -52,9 +52,6 @@
     <ClCompile Include="GameInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameTitle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HoldBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -74,9 +71,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bgm.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTitle.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="VolumeAdjust.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -97,9 +100,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTitle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HoldBlock.h">
@@ -124,6 +124,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <ClInclude Include="Bgm.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTitle.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -148,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VolumeAdjust.h">
-      <Filter>Header Files</Filter>
+      <Filter>Generated Files</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

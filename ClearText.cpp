@@ -67,29 +67,32 @@ void ClearText::showScoreText(int score) {
 }
 
 void ClearText::showClear(int clearLineCount, bool isTSpin, bool isTSpinMini) {
-    QString displayText{};
-    if (isTSpin) {
-        switch (clearLineCount) {
-        case 1: displayText = " TSpin\nSingle!"; break;
-        case 2: displayText = " TSpin\nDouble!"; break;
-        case 3: displayText = " TSpin\nTriple!"; break;
+    QString displayText{ [&]() -> QString {
+        if (isTSpin) {
+            switch (clearLineCount) {
+            case 1: return " TSpin\nSingle!";
+            case 2: return " TSpin\nDouble!";
+            case 3: return " TSpin\nTriple!";
+            }
         }
-    }
-    else if (isTSpinMini) {
-        switch (clearLineCount) {
-        case 1: displayText = "TSpinMini\n Single!"; break;
-        case 2: displayText = "TSpinMini\n Double!"; break;
-        case 3: displayText = "TSpinMini\n Triple!"; break;
+        else if (isTSpinMini) {
+            switch (clearLineCount) {
+            case 1: return "TSpinMini\n Single!";
+            case 2: return "TSpinMini\n Double!";
+            case 3: return "TSpinMini\n Triple!";
+            }
         }
-    }
-    else {
-        switch (clearLineCount) {
-        case 1: displayText = " Single!"; break;
-        case 2: displayText = " Double!"; break;
-        case 3: displayText = " Triple!"; break;
-        case 4: displayText = " Tetris!"; break;
+        else {
+            switch (clearLineCount) {
+            case 1: return " Single!";
+            case 2: return " Double!";
+            case 3: return " Triple!";
+            case 4: return " Tetris!";
+            }
         }
-    }
+        throw "Should not reach here.\n";
+    }()};
+    
 
     m_normalText->document()->setHtml("<font color='red' font='times' size='24' >" + displayText + "</font>");
     m_normalText->setVisible(true);

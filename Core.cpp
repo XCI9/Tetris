@@ -11,7 +11,7 @@ int Core::clearLine() {
 
     //check current tetrominoes positions if all line filled
     std::array<int,4> currentTetrominoesLine{ m_currentTetrominoes[0].y(), m_currentTetrominoes[1].y(),
-                                   m_currentTetrominoes[2].y(), m_currentTetrominoes[3].y() };
+                                              m_currentTetrominoes[2].y(), m_currentTetrominoes[3].y() };
     std::sort(currentTetrominoesLine.begin(), currentTetrominoesLine.end());
     for (const auto& line : currentTetrominoesLine) {
         if (std::all_of(std::execution::par_unseq,
@@ -40,8 +40,7 @@ int Core::clearLine() {
 /// @brief choose place to summon new tetrominoes
 /// @return the position that is avaliable to put new tetrominoes, -1 if all possible places are invalid.
 int Core::chooseSummonPosition() {
-    int validYPosition{ -1 };
-    for (int i{ 2 }; i >= 0; i--, validYPosition--) {
+    for (int i{ 2 }, validYPosition{ -1 }; i >= 0; i--, validYPosition--) {
         validYPosition = i;
         for (auto& [x, y] : m_currentTetrominoes) {
             if (m_board[y + i + m_bufferSize-2][x] != Block::Empty)
@@ -83,9 +82,8 @@ void Core::summonTetrominoes() {
 
     if (validYPosition != -1) {
         m_currentTetrominoesMove.ry() += validYPosition;
-        for (auto& [x, y] : m_currentTetrominoes) {
+        for (auto& [x, y] : m_currentTetrominoes)
             y += validYPosition;
-        }
     }
     else {
         m_isGameOver = true;
@@ -201,75 +199,74 @@ void Core::TSpinCheck(){
     if (m_currentTetrominoesShape != Block::T || m_lastOperation != Operation::Spin)
         return;
 
-    QPoint TPosition{ m_currentTetrominoes[2] };
     int tetrominoCountAtBackCorner{};
     int tetrominoCountAtFrontCorner{};
-    switch (m_currentTetrominoesRotation) {
+    switch (const auto& [TPositionX, TPositionY] { m_currentTetrominoes[2] }; m_currentTetrominoesRotation) {
     case Rotation::Spawn:
         //  ■
         //■ ■ ■
-        if (TPosition.y() + 1 == m_height)  //at Bottom
+        if (TPositionY + 1 == m_height)  //at Bottom
             tetrominoCountAtBackCorner = 2;
         else {
-            if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
+            if (m_board[TPositionY + 1][TPositionX - 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
-            if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
+            if (m_board[TPositionY + 1][TPositionX + 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
         }
 
-        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
+        if (m_board[TPositionY - 1][TPositionX - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
+        if (m_board[TPositionY - 1][TPositionX + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     case Rotation::Right:
         //■
         //■ ■
         //■
-        if (TPosition.x() - 1 < 0)  //Beside Left Wall
+        if (TPositionX - 1 < 0)  //Beside Left Wall
             tetrominoCountAtBackCorner = 2;
         else {
-            if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
+            if (m_board[TPositionY - 1][TPositionX - 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
-            if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
+            if (m_board[TPositionY + 1][TPositionX - 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
         }
 
-        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
+        if (m_board[TPositionY - 1][TPositionX + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
+        if (m_board[TPositionY + 1][TPositionX + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     case Rotation::SpawnUpSideDown:
         //■ ■ ■
         //  ■
-        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
+        if (m_board[TPositionY - 1][TPositionX - 1] != Block::Empty)
             tetrominoCountAtBackCorner++;
-        if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
+        if (m_board[TPositionY - 1][TPositionX + 1] != Block::Empty)
             tetrominoCountAtBackCorner++;
 
 
-        if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
+        if (m_board[TPositionY + 1][TPositionX - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
+        if (m_board[TPositionY + 1][TPositionX + 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     case Rotation::Left:
         //  ■
         //■ ■
         //  ■
-        if (TPosition.x() + 1 == m_width)  //Beside Right Wall
+        if (TPositionX + 1 == m_width)  //Beside Right Wall
             tetrominoCountAtBackCorner = 2;
         else {
-            if (m_board[TPosition.y() - 1][TPosition.x() + 1] != Block::Empty)
+            if (m_board[TPositionY - 1][TPositionX + 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
-            if (m_board[TPosition.y() + 1][TPosition.x() + 1] != Block::Empty)
+            if (m_board[TPositionY + 1][TPositionX + 1] != Block::Empty)
                 tetrominoCountAtBackCorner++;
         }
 
-        if (m_board[TPosition.y() - 1][TPosition.x() - 1] != Block::Empty)
+        if (m_board[TPositionY - 1][TPositionX - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
-        if (m_board[TPosition.y() + 1][TPosition.x() - 1] != Block::Empty)
+        if (m_board[TPositionY + 1][TPositionX - 1] != Block::Empty)
             tetrominoCountAtFrontCorner++;
         break;
     }
@@ -455,16 +452,16 @@ void Core::rotateClockwise() {
     }
 
     if(m_currentTetrominoesShape == Block::I) [[unlikely]] {
-        for (auto& block : rotationPlace) {
-            block = QPoint(block.y(), block.x());
-            block.setX(3 - block.x());
+        for (auto& [x, y] : rotationPlace) {
+            std::swap(x, y);
+            x = 3 - x;
         }
     }
     else [[likely]] {  //LJTSZ
-        for (auto& block : rotationPlace) {
+        for (auto& [x, y] : rotationPlace) {
             //row col reverse
-            block = QPoint(block.y(), block.x());
-            block.setX(2 - block.x());
+            std::swap(x, y);
+            x = 2 - x;
         }
     }
     judgeSpinPosition(rotationPlace, directionAfterSpin, SpinDirection::Clockwise);
@@ -564,16 +561,16 @@ void Core::rotateCounterClockwise() {
     }
 
     if(m_currentTetrominoesShape == Block::I) [[unlikely]] {
-        for (auto& block : rotationPlace) {
-            block = QPoint(block.y(), block.x());
-            block.setY(3 - block.y());
+        for (auto& [x, y] : rotationPlace) {
+            std::swap(x, y);
+            y = 3 - y;
         }
     }
     else [[likely]] { //LJTSZ
-        for (auto& block : rotationPlace) {
+        for (auto& [x, y] : rotationPlace) {
             //row col reverse
-            block = QPoint(block.y(), block.x());
-            block.setY(2 - block.y());
+            std::swap(x, y);
+            y = 2 - y;
         }
     }
     judgeSpinPosition(rotationPlace, directionAfterSpin, SpinDirection::CounterClockwise);

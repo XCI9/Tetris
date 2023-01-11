@@ -5,13 +5,13 @@ using namespace Block;
 Tetrominoes::Tetrominoes(float unitSize) :
     m_unitSize{ unitSize }
 {
-    for (int i{ 0 }; i < 4; i++) {
-        m_block[i] = new QGraphicsRectItem{};
-        m_block[i]->setRect(0, 0, unitSize, unitSize);
-        m_block[i]->setPos(unitSize, unitSize);
-        m_block[i]->show();
+    for (auto& block : m_block) {
+        block = new QGraphicsRectItem{};
+        block->setRect(0, 0, unitSize, unitSize);
+        block->setPos(unitSize, unitSize);
+        block->show();
 
-        this->addToGroup(m_block[i]);
+        this->addToGroup(block);
     }
 }
 

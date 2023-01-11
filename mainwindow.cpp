@@ -6,11 +6,13 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , scene{ new Tetris{} }
-    , ui(new Ui::MainWindow)
+    , titleScreen{ new TitleScreen{} }
+    , ui(new Ui::MainWindow{})
 {
     ui->setupUi(this);
 
     ui->graphicsView->setScene(scene);
+    //ui->graphicsView->setScene(titleScreen);
 
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
